@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <title>Bookmarks</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .ui {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin: 20px 0;
+      }
+      .contenedor {
+        width: 400px;
+        border: 1px solid;
+        border-radius: 5px;
+        float: left;
+        background-color: #eeeeee;
+      }
+      .btnAdd {
+        display: block;
+        margin: auto;
+        outline: none;
+        border: none;
+        background-color: #c3e5ae;
+        padding: 5px 50px;
+        text-align: center;
+        font-size: larger;
+        border-radius: 10px;
+        cursor: pointer;
+      }
+      .btnGuardar:hover,
+      .btnAdd:hover {
+        background-color: #97dbae;
+      }
+      h2 {
+        text-align: center;
+        font-weight: 500;
+        margin: 5px;
+      }
+      .inputDetalles {
+        display: flex;
+        justify-content: space-between;
+        width: 300px;
+        margin: auto;
+        align-items: center;
+      }
+      .campoDetalles {
+        margin: 5px 0;
+      }
+      .inputDetallesEtiqueta,
+      .inputDetallesBookmark {
+        display: none;
+      }
+      h4 {
+        text-align: center;
+        margin: 10px auto;
+        font-weight: 600;
+      }
+      .btnGuardar {
+        display: block;
+        padding: 5px 15px;
+        outline: none;
+        background-color: #c3e5ae;
+        border-radius: 10px;
+        border: none;
+        margin: 10px auto;
+        cursor: pointer;
+      }
+      ul {
+        padding: 0;
+      }
+
+      .btnList {
+        border-radius: 5px;
+        outline: none;
+        background-image: url("editIcon.png");
+        background-size: cover;
+        background-color: #ebd671;
+        width: 25px;
+        height: 25px;
+        float: right;
+        cursor: pointer;
+        background-position: center;
+      }
+      li {
+        display: block;
+        list-style-type: none;
+        margin: 10px auto;
+        border-radius: 5px;
+        width: 250px;
+        padding: 10px;
+        background: #fff;
+      }
+      .zonaDrop {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 270px;
+        height: 50px;
+        border: 1px solid #f4bbbb;
+        margin: 10px auto;
+        background: linear-gradient(
+          45deg,
+          #f4bbbb 0%,
+          #f4bbbb 5%,
+          transparent 5%,
+          transparent 10%,
+          #f4bbbb 10%,
+          #f4bbbb 15%,
+          transparent 15%,
+          transparent 20%,
+          #f4bbbb 20%,
+          #f4bbbb 25%,
+          transparent 25%,
+          transparent 30%,
+          #f4bbbb 30%,
+          #f4bbbb 35%,
+          transparent 35%,
+          transparent 40%,
+          #f4bbbb 40%,
+          #f4bbbb 45%,
+          transparent 45%,
+          transparent 50%,
+          #f4bbbb 50%,
+          #f4bbbb 55%,
+          transparent 55%,
+          transparent 60%,
+          #f4bbbb 60%,
+          #f4bbbb 65%,
+          transparent 65%,
+          transparent 70%,
+          #f4bbbb 70%,
+          #f4bbbb 75%,
+          transparent 70%,
+          transparent 80%,
+          #f4bbbb 80%,
+          #f4bbbb 85%,
+          transparent 85%,
+          transparent 90%,
+          #f4bbbb 90%,
+          #f4bbbb 95%,
+          transparent 95%
+        );
+        background-size: 4em 4em;
+        background-color: #f9f9ff;
+        opacity: 1;
+      }
+      .detallesMarcadorIndividual {
+        width: 250px;
+        margin: 10px auto;
+        text-align: center;
+        padding: 10px;
+        border-radius: 10px;
+        background: #f4eeff;
+        display: block;
+        border: 1px solid;
+      }
+      .tituloDetallesInidividual {
+        display: inline-block;
+        margin: 10px 0;
+        font-weight: 500;
+        font-size: 18px;
+        padding: 5px 10px;
+      }
+      .etiquetasDetallesIndividual {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        padding: 5px;
+      }
+      .etiquetasDetallesIndividual > span {
+        border: 1px solid gray;
+        padding: 5px 10px;
+        border-radius: 40px;
+        margin: 2.5px;
+        background-color: #fff;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="ui">
+      <div id="listaMarcadores" class="contenedor">
+        <h2>BOOKMARKS</h2>
+        <button class="btnAdd btnAddBookmarks">+</button>
+        <ul id="ulBookmarks"></ul>
+        <div class="zonaDrop"><img src="removeIcon.png" /></div>
+      </div>
+      <div id="detallesMarcadores" class="contenedor">
+        <h2>DETALLES</h2>
+
+        <div class="bookmarksFiltrados"></div>
+        <div class="rellenarDetalles inputDetallesBookmark">
+          <h4>Detalles del Bookmark</h4>
+          <div class="inputDetalles">
+            <label for="titulo">Titulo</label>
+
+            <input type="text" class="campoDetalles" id="titulo" required />
+          </div>
+          <div class="inputDetalles">
+            <label for="plataforma">Plataforma</label>
+            <input type="text" class="campoDetalles" id="plataforma" required />
+          </div>
+          <div class="inputDetalles">
+            <label for="genero">Genero</label>
+            <input type="text" class="campoDetalles" id="genero" required />
+          </div>
+          <button class="btnGuardar" id="guardarBookmark">
+            Guardar Bookmark
+          </button>
+        </div>
+        <div class="rellenarDetalles inputDetallesEtiqueta">
+          <h4>Detalles de la etiqueta</h4>
+
+          <div class="inputDetalles">
+            <label for="titulo">Nombre</label>
+
+            <input type="text" class="campoDetalles" id="nombreEtiqueta" />
+          </div>
+          <button class="btnGuardar" id="guardarEtiqueta">
+            Guardar Etiqueta
+          </button>
+        </div>
+      </div>
+      <div id="listaEtiquetas" class="contenedor">
+        <h2>ETIQUETAS</h2>
+
+        <button class="btnAdd btnAddEtiquetas">+</button>
+        <ul id="ulEtiquetas"></ul>
+        <div class="zonaDrop"><img src="removeIcon.png" /></div>
+      </div>
+    </div>
+    <script src="app.js"></script>
+  </body>
+</html>
